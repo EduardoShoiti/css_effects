@@ -18,7 +18,12 @@
 
 	<script>
 		function ativar() {
-			document.getElementById("audio").play();
+			var audio = document.getElementById("audio");
+			if (audio.paused) {
+				audio.play();
+			} else {
+				audio.pause();
+			}
 			var coracao = document.getElementById("coracao");			
 			coracao.style.animationPlayState = "running";
 		}
