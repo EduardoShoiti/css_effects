@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Lanterna do celular</title>
+</head>
+<body>
+  <button id="btn-lanterna">Ligar lanterna</button>
+
+  <script>
+    // Adiciona um evento de clique ao botão
+    document.getElementById("btn-lanterna").addEventListener("click", function() {
+      // Solicita permissão para acessar a câmera e o microfone
+      navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+      .then(function(stream) {
+        // Obtém o objeto MediaStreamTrack do fluxo de vídeo
+        var track = stream.getVideoTracks()[0];
+
+        // Ligar a lanterna
+        track.applyConstraints({
+          advanced: [{torch: true}]
+        })
+        .catch(function() {
+          console.log("Não foi possível ligar a lanterna.");
+        });
+      })
+      .catch(function(err) {
+        console.log("O usuário não concedeu permissão para acessar a câmera e o microfone.");
+      });
+    });
+  </script>
+</body>
+</html>
